@@ -15,7 +15,7 @@ class stack:
         if len(self.data)>=self.size:
             print("Stack overflow")
             return 
-        self.data.append(value)
+        self.data.append(value) 
     def pop(self):
         try:
             self.data.pop(-1)
@@ -27,8 +27,10 @@ class stack:
             return self.data[-1]
         except IndexError:
             print('empty stack(underflow)')
+    
     def display(self):
         print(' '.join(str(i) for i in self.data))
+
 s = stack(int(input()))
 for i in range(1,5):
     print('stack top :',s.peek())

@@ -1,5 +1,5 @@
 """
-2 attr: data  next(obj) 
+3 attr:prev(obj) data  next(obj) 
   
  1   inse: begi
            midd 
@@ -15,6 +15,7 @@ class node:
     def __init__(self,data=None):
         self.data=data
         self.next=None
+        self.prev=None
 
 class sll:
     def __init__(self):
@@ -28,6 +29,7 @@ class sll:
         else:
             new_node = node(val)
             new_node.next = self.head
+            new_node.prev=None
             self.head = new_node
     
     def IAM(self,val,pos):
@@ -37,6 +39,7 @@ class sll:
             temp=temp.next
             traverse+=1
         new_node = node(val)
+        new_node.prev=temp
         if temp.next!=None:
             new_node.next=temp.next
         temp.next=new_node
@@ -48,8 +51,10 @@ class sll:
             self.tail=self.head
             return
         new_node=node(val)
+        new_node.prev=self.tail
         self.tail.next=new_node
         self.tail=new_node
+        
 
     
     def DAB(self):
@@ -58,6 +63,7 @@ class sll:
         else:
             a=self.head
             self.head=self.head.next
+            self.head.prev=None
             del a
     def DAM(self,pos):
         if self.head==None:
@@ -71,6 +77,7 @@ class sll:
             del_node=temp.next
             if del_node.next!=None:
                 temp.next=del_node.next
+                del_node.next.prev=temp
             else:
                 temp.next=None
             del del_node
@@ -83,6 +90,7 @@ class sll:
         while temp.next!=self.tail:
             temp=temp.next
         va=temp.next
+        temp.next=None
         self.tail=temp
         del va
 

@@ -1,20 +1,8 @@
-"""
-2 attr: data  next(obj) 
-  
- 1   inse: begi
-           midd 
-           end 
- 2  delet: begi
-           midd 
-           end 
- 3  traversing 
-
-[]
-"""
 class node:
     def __init__(self,data=None):
         self.data=data
-        self.next=None
+        self.next=self
+        self.prev=self
 
 class sll:
     def __init__(self):
@@ -28,6 +16,7 @@ class sll:
         else:
             new_node = node(val)
             new_node.next = self.head
+            new_node.prev=self.head.prev
             self.head = new_node
     
     def IAM(self,val,pos):
@@ -37,6 +26,7 @@ class sll:
             temp=temp.next
             traverse+=1
         new_node = node(val)
+        new_node.prev=temp
         if temp.next!=None:
             new_node.next=temp.next
         temp.next=new_node
@@ -47,17 +37,23 @@ class sll:
             self.head = node(val)
             self.tail=self.head
             return
+        temp=self.head
+        while temp.next!=self.head:
+            temp=temp.next
         new_node=node(val)
-        self.tail.next=new_node
-        self.tail=new_node
-
-    
+        temp.next=new_node
+        new_node.prev=temp
+        new_node.next=self.head
+        self.head.prev=new_node
+        
     def DAB(self):
         if self.head==None:
             print('empty')
         else:
             a=self.head
-            self.head=self.head.next
+            self.head.next.prev=self.head.prev
+            self.head.prev.next=self.head.next
+            self.head=self.head.next     
             del a
     def DAM(self,pos):
         if self.head==None:
@@ -71,6 +67,7 @@ class sll:
             del_node=temp.next
             if del_node.next!=None:
                 temp.next=del_node.next
+                del_node.next.prev=temp
             else:
                 temp.next=None
             del del_node
@@ -80,10 +77,11 @@ class sll:
             print("empty")
             return
         temp=self.head
-        while temp.next!=self.tail:
+        while temp.next!=self.head.prev:
             temp=temp.next
         va=temp.next
-        self.tail=temp
+        temp.next=self.head
+        self.head.prev=temp
         del va
 
     
